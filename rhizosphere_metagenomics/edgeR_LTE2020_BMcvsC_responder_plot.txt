@@ -1,0 +1,30 @@
+Name	logFC
+srfAD Surfactin	3.876297948
+epsG Transmembrane protein	2.124836961
+ituA Iturin lipopeptide synthetase A	2.004608304
+srfAA Surfactin	1.746631888
+srfAC Surfactin	1.68760012
+fenD Fengycin	1.302345521
+ituB Iturin lipopeptide synthetase B	1.28067226
+epsA Protein tyrosine kinase modulator	1.04023337
+ituC Iturin lipopeptide synthetase C	0.98195781
+srfAB Surfactin	0.84649741
+rhiC Rhizoxin biosynthesis polyketide synthase	0.60333519
+qseC OmpR family sensor histidine kinase	0.409474692
+ofaA Arthrofactin-type cyclic lipopeptide synthetase A	0.354818472
+benD Dihydroxycyclohexadiene-carboxylate-dehydrogenase	0.337841916
+ofaC Arthrofactin-type cyclic lipopeptide synthetase C	0.329023697
+ofaB Arthrofactin-type cyclic lipopeptide synthetase B	0.31067975
+pcaG Protocatechuate-3,4-dioxygenase alpha subunit	0.219397273
+dhbF Glycine ligase 	0.205183213
+entF L-serine ligase 	0.167516486
+pcaB 3-carboxy-cis,cis-muconate-cycloisomerase	0.11716569
+rbsB Ribose transport substrate-binding protein	-0.096850536
+potB Spermidine transport permease protein	-0.114282694
+ilvH Acetolactate synthase small subunit	-0.115291813
+lptB Lipopolysaccharide export ATP binding protein	-0.12226084
+Phthalate-4,5-dioxygenase	-0.124960647
+nirK Nitrite reductase	-0.158145994
+4,5-dihydroxyphthalate decarboxylase	-0.215208081
+potD Spermidine transport substrate-binding protein	-0.216683068
+cvpA Membrane protein colicin V production	-0.21952049

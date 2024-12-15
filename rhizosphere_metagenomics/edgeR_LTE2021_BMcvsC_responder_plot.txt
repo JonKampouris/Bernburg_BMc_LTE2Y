@@ -1,0 +1,14 @@
+Name	LogFC
+srfAD Surfactin	4.723701252
+ituA Iturin family lipopeptide synthetase A	3.274126036
+srfAA Surfactin	3.243507726
+srfAC Surfactin	3.154148592
+fenD Fengycin	2.97460754
+epsG transmembrane protein 	2.885051328
+ituB Iturin family lipopeptide synthetase B	2.339509434
+srfAB Surfactin	1.957588671
+entB bifunctional isochorismate lyase aryl carrier protein	1.770016667
+ituC Iturin family lipopeptide synthetase C	1.748309762
+cheV Chemotaxis response regulator 	0.689129485
+dhbF Glycine ligase	0.164097325
+speE spermidine synthase	-0.149625764
