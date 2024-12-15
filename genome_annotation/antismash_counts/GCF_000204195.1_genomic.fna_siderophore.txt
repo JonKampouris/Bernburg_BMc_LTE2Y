@@ -1,0 +1,7 @@
+                     /product="NI-siderophore"
+                     /product="NI-siderophore"
+                     /product="NI-siderophore"
+                     /product="NI-siderophore"
+                     /product="NI-siderophore"
+                     NI-siderophore: IucA_IucC"
+                     SMCOG1051:TonB-dependent siderophore receptor (Score: 457;
