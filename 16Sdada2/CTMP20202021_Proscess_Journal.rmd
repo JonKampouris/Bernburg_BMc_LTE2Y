@@ -1,0 +1,441 @@
+---
+title: "BernburgCTMP20202021"
+author: "Ioannis D. Kampouris"
+date: "2023-02-16"
+output: pdf_document
+---
+######
+Update. I redid the analysis on 12/0
+
+
+14.02.2023
+I started with a script for using fastqc for quality control.
+Quality control is now running.
+Quality is exceptional. All samples have average above 250. 
+Maybe I will do a trimming to less than 30 bases.
+15.02.2023
+After using grep I found that the raw reads contain barcode and primers. 
+So I would recommend a 10 base trimming on 5` and a 10 bases trimming on 3`
+I transferred everything into the R server, 
+which runs on UBUNTU as well via R terminal.
+Tested a bit on whether fastqc and multiQC work.
+
+**Warning paths may change in github, thus if you want to repeat the analyzis you
+might need to change the paths**
+
+16.02.2023
+#############################################################
+Code in Bash Shell
+#############################################################
+#!/bin/bash
+#Author: Ioannis Kampouris
+#Purpose: Use fastqc and multiqc in the R Server (UBUNTU OS)
+#Dependencies a path for fastqc and 
+# Attention: To download multiQC you need to have a git clone with pip3 install .
+
+export PATH=$PATH:"/home/ioannis.kampouris/fastqc/FastQC" 
+#Change accordingly to your path 
+export PATH=$PATH:"/home/ioannis.kampouris/fastqc/MultiQC" 
+#Change accordingly to your path 
+
+find -name  "*raw_1*"|sed 's/^..//'  > sample_list.txt 
+#Change accordingly to your path 
+
+mkdir QC
+filename='sample_list.txt'
+echo Start
+while read i;
+   do 
+   SAMPLE=$(echo ${i} | sed "s/raw_1\.fq\.gz//")
+      echo "$SAMPLE"
+   fastqc  ${SAMPLE}raw_2.fq.gz -o QC #You can remove the 
+   #"RAW" if you want your files with NOVOGENE cleaning
+    fastqc  ${SAMPLE}raw_1.fq.gz -o QC
+     
+done <"$filename"
+ 
+ mkdir QC/FW
+ mkdir QC/RE
+
+mv QC/*raw_1* QC/FW
+mv QC/*raw_2* QC/RE
+cd QC/FW
+python3 -m multiqc  .
+cd ..
+cd ..
+cd QC/RE
+python3 -m multiqc  .
+
+After I run the fastqc/multiqc I plotted the results of average quality per read
+##########################################################################
+```{r, fig.height=10, fig.width=10}
+library(readr)
+library(tidyverse)
+library(ggplot2)
+
+set.seed(17011990)
+quality_FW_2021=read_delim(
+paste0("/home/ioannis.kampouris/two_years_study/2021_DiControl_AP4_WdhMais/",
+"QC/FW/multiqc_data/mqc_fastqc_per_base_sequence_quality_plot_1.txt"), 
+delim = "\t")%>%
+gather(-Sample, key="Sequence", 
+       value = "Average_Phred_Score") %>%mutate(Type="Forward")
+
+quality_RE_2021=read_delim(paste0(
+"/home/ioannis.kampouris/two_years_study/2021_DiControl_AP4_WdhMais/",
+"QC/RE/multiqc_data/mqc_fastqc_per_base_sequence_quality_plot_1.txt"), 
+delim = "\t")%>%
+gather(-Sample, key="Sequence", value = "Average_Phred_Score")%>%
+  mutate(Type="Reverse")
+
+QC_both_FW_and_RE_2021=full_join(quality_FW_2021, quality_RE_2021, 
+                                 by=colnames(quality_FW_2021))
+
+ggplot(QC_both_FW_and_RE_2021, aes(y=Average_Phred_Score, 
+x=as.numeric(Sequence), colour=Sample))+
+facet_grid(~Type)+ylim(0, 40) + geom_line() + 
+geom_hline(yintercept = 25, linetype="dashed")+
+theme_bw() + 
+theme( axis.text.y = element_text( size=25, face = "bold", colour="black")) +
+theme(axis.text.x = element_text(size = 25, face = "bold", colour="black")) +
+theme(legend.text = element_text( size=25, face="bold", colour = "black")) + 
+theme( axis.title.y = element_text( size=25, face = "bold", colour="black")) + 
+theme(axis.title.x = element_text(size = 25, face = "bold", colour="black")) +
+theme(legend.title =  element_text( size=25, face="bold", colour = "black"))+
+theme(strip.background =  element_rect( fill = "#222d80",  colour = "#222d80"))+
+theme(strip.text  =  element_text( size=10, face="bold", colour = "white")) + 
+theme(legend.position = "none") +
+ggtitle("Raw Sequences quality 2021") + xlab("Base Number")
+```
+Average quality Above Phred_Score 30 for most of the samples, I can continue.
+
+```{r, fig.height=10, fig.width=10}
+quality_FW_2020=read_delim(paste0(
+"/home/ioannis.kampouris/two_years_study/2020_DiControl_AP4-2Mais/QC/FW/",
+"multiqc_data/mqc_fastqc_per_base_sequence_quality_plot_1.txt"), delim = "\t")%>%
+  gather(-Sample, key="Sequence", value = "Average_Phred_Score") %>%
+  mutate(Type="Forward")
+
+quality_RE_2020=read_delim(paste0(
+"/home/ioannis.kampouris/two_years_study/2020_DiControl_AP4-2Mais/",
+"QC/RE/multiqc_data/mqc_fastqc_per_base_sequence_quality_plot_1.txt"), 
+delim = "\t")%>%
+gather(-Sample, key="Sequence", value = "Average_Phred_Score")%>%
+mutate(Type="Reverse")
+QC_both_FW_and_RE_2020=full_join(quality_FW_2020, quality_RE_2020, 
+by=colnames(quality_FW_2020))
+
+ggplot(QC_both_FW_and_RE_2020, aes(y=Average_Phred_Score,
+x=as.numeric(Sequence), colour=Sample))+
+facet_grid(~Type)+ geom_line() + 
+geom_hline(yintercept = 25, linetype="dashed")+
+theme_bw() + theme( axis.text.y = 
+element_text( size=25, face = "bold", colour="black")) +
+theme(axis.text.x = 
+element_text(size = 25, face = "bold", colour="black")) +
+theme(legend.text = element_text( size=25, face="bold", colour = "black")) + 
+theme( axis.title.y = element_text( size=25, face = "bold", colour="black")) + 
+theme(axis.title.x = element_text(size = 25, face = "bold", colour="black")) +
+theme(legend.title =  element_text( size=25, face="bold", colour = "black"))+
+theme(strip.background =  element_rect( fill = "#222d80",  colour = "#222d80"))+
+theme(strip.text  =  element_text( size=10, face="bold", colour = "white")) +
+theme(legend.position = "none") +
+ggtitle("Raw Sequences quality 2020") + xlab("Base Number") + ylim(20, 40)
+
+```  
+```{r, fig.height=10, fig.width=10}
+quality_FW_2021=read_delim(paste0(
+"/home/ioannis.kampouris/two_years_study/",
+"2021_DiControl_AP4_WdhMais/QC/FW/multiqc_data/",
+"mqc_fastqc_per_base_sequence_quality_plot_1.txt"), delim = "\t")%>%
+gather(-Sample, key="Sequence", value = "Average_Phred_Score") %>%
+mutate(Type="Forward")
+
+quality_RE_2021=read_delim(paste0(
+"/home/ioannis.kampouris/two_years_study/2021_DiControl_AP4_WdhMais/QC/RE",
+"/multiqc_data/mqc_fastqc_per_base_sequence_quality_plot_1.txt"), 
+delim = "\t")%>%
+gather(-Sample, key="Sequence", 
+value = "Average_Phred_Score")%>%mutate(Type="Reverse")
+QC_both_FW_and_RE_2021=full_join(quality_FW_2021, 
+quality_RE_2021, by=colnames(quality_FW_2021))
+
+ggplot(QC_both_FW_and_RE_2021, aes(y=Average_Phred_Score, 
+x=as.numeric(Sequence), colour=Sample))+
+  facet_grid(~Type)+ geom_line() + geom_hline(yintercept = 25,
+linetype="dashed")+
+theme_bw() + theme( axis.text.y = element_text( size=25,
+face = "bold", colour="black")) +
+theme(axis.text.x = element_text(size = 25, 
+face = "bold", colour="black")) +
+theme(legend.text = element_text( size=25, face="bold", colour = "black")) + 
+theme( axis.title.y = element_text( size=25,
+face = "bold", colour="black")) + 
+theme(axis.title.x = element_text(size = 25, 
+face = "bold", colour="black")) +
+theme(legend.title =  element_text( size=25,
+face="bold", colour = "black"))+
+theme(strip.background =  element_rect( fill = "#222d80",
+colour = "#222d80"))+
+theme(strip.text  =  element_text( size=10, 
+face="bold", colour = "white")) + theme(legend.position = "none") +
+  ggtitle("Raw Sequences quality 2021") + xlab("Base Number") + ylim(20, 40)
+
+```  
+
+Average quality Above Phred_Score 30 for most of the samples, but still it drops after 220 bases in the 
+Reverse Reads for 2020
+
+I will use cutadapt to remove the primers, potentially not removed by NOVOGE.
+
+
+Script for cutadapt:
+<!-- #!/bin/bash -->
+<!-- #Author: Ioannis Kampouris -->
+<!-- #Purpose: Use fastqc and multiqc in the R Server (UBUNTU OS) -->
+<!-- #Dependencies a path for fastqc and -->
+<!-- # Primer Sequences According to NOVOGENE -->
+<!-- # FW: CCTAYGGGRBGCASCAG RE:GGACTACNNGGGTATCTAAT -->
+
+<!-- cd '2020_DiControl_AP4-2Mais' -->
+<!-- find -name  "*raw_1*"|sed 's/^..//'  > s_2020_sample_list.txt #Change accordingly to your path -->
+
+<!-- filename='s_2020_sample_list.txt' -->
+<!-- echo "Start 2020 samples" -->
+<!-- mkdir -p trimmed_cutadapt/first_2020 -->
+<!-- mkdir reports -->
+
+<!-- while read i; -->
+<!-- 	do -->
+<!--    SAMPLE=$(echo ${i} | sed "s/raw_1\.fq\.gz//") -->
+<!--    echo "$SAMPLE" -->
+<!--    cutadapt -g CCTAYGGGRBGCASCAG -G GGACTACNNGGGTATCTAAT  --discard-untrimmed   \ -->
+<!--    -o ${SAMPLE}_2020_trimmed_cutadapt_1.fq -p         \ -->
+<!--      ${SAMPLE}_2020_trimmed_cutadapt_2.fq    ${SAMPLE}raw_1.fq.gz ${SAMPLE}raw_2.fq.gz \ -->
+<!-- 	 > ${SAMPLE}.log -->
+
+
+
+<!-- done <"$filename" -->
+
+<!-- find . -name '*.fq' -exec mv {} trimmed_cutadapt/first_2020 \; -->
+<!-- find . -name '*.log' -exec mv {} reports \; -->
+
+<!-- cd .. -->
+
+<!-- cd '2021_DiControl_AP4_WdhMais' -->
+<!-- find -name  "*raw_1*"|sed 's/^..//'  > s_2021_sample_list.txt #Change accordingly to your path -->
+
+<!-- filename='s_2021_sample_list.txt' -->
+<!-- echo "Start 2021 samples" -->
+<!-- mkdir -p trimmed_cutadapt/second_2021 -->
+<!-- mkdir reports -->
+
+<!-- while read i; -->
+<!-- 	do -->
+<!--    SAMPLE=$(echo ${i} | sed "s/raw_1\.fq\.gz//") -->
+<!--    echo "$SAMPLE" -->
+<!--    cutadapt -g CCTAYGGGRBGCASCAG -G GGACTACNNGGGTATCTAAT  --discard-untrimmed    \ -->
+<!--    -o ${SAMPLE}_2021_trimmed_cutadapt_1.fq -p         \ -->
+<!--      ${SAMPLE}_2021_trimmed_cutadapt_2.fq    ${SAMPLE}raw_1.fq.gz ${SAMPLE}raw_2.fq.gz \ -->
+<!-- 	  > ${SAMPLE}.log -->
+
+
+
+<!-- done <"$filename" -->
+
+<!-- find . -name '*.fq' -exec mv {} trimmed_cutadapt/second_2021 \; -->
+<!-- find . -name '*.log' -exec mv {} reports \; -->
+
+#Start dada2 for the 2020 samples
+```{r, fig.height=10, fig.width=10}
+library(dada2)
+#Modified error training for NovoGene seq
+source("mod_loess_function.R")
+path_2020 <-paste0( "/home/ioannis.kampouris/two_years_study/",
+"2020_DiControl_AP4-2Mais/trimmed_cutadapt/first_2020")
+# CHANGE ME to the directory containing your demultiplexed fastq files
+filtpathF_2020 <- file.path(path_2020, "FW_filtered") 
+# Filtered forward files go into the pathF/filtered/ subdirectory
+filtpathR_2020 <- file.path(path_2020, "RE_filtered") 
+fastqFs_2020 <- sort(list.files(path_2020, pattern="_1.fq"))
+fastqRs_2020 <- sort(list.files(path_2020, pattern="_2.fq"))
+# Filtering
+out_2020<-filterAndTrim(fwd=file.path(path_2020, fastqFs_2020), filt=file.path(filtpathF_2020, fastqFs_2020),
+              rev=file.path(path_2020, fastqRs_2020), filt.rev=file.path(filtpathR_2020, fastqRs_2020),
+               maxEE=c(2,2), rm.phix=TRUE, matchIDs = T,
+              trimRight =   c(5,5),
+              compress=TRUE, verbose=TRUE, multithread=TRUE)
+
+```
+
+Lowest output ~75.9%
+```{r, fig.height=10, fig.width=10}
+filtFs_2020 <- list.files(filtpathF_2020, pattern="fq", full.names = TRUE)
+filtRs_2020 <- list.files(filtpathR_2020, pattern="fq", full.names = TRUE)
+sample.names_2020 <- sapply(strsplit(basename(filtFs_2020), "_"), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+sample.namesR_2020 <- sapply(strsplit(basename(filtRs_2020), "_"), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+if(!identical(sample.names_2020, sample.namesR_2020)) stop("Forward and reverse files do not match.")else{"Proceed with Safety"}
+names(filtFs_2020) <- sample.names_2020
+names(filtRs_2020) <- sample.names_2020
+errF_2020 <- learnErrors(filtFs_2020,  errorEstimationFunction = loessErrfun_mod1, randomize = T,nbases=1e8, verbose = T, multithread=TRUE)
+errR_2020 <- learnErrors(filtRs_2020, nbases=1e8, errorEstimationFunction = loessErrfun_mod1, randomize = T, multithread=TRUE)
+plotErrors(errF_2020, nominalQ=TRUE)
+plotErrors(errR_2020, nominalQ=TRUE)
+```
+
+```{r}
+ddF_2020 <- dada(filtFs_2020, err=errF_2020, multithread=TRUE)
+ddR_2020 <- dada(filtRs_2020, err=errR_2020, multithread=TRUE)
+```
+```{r}
+mergers_2020 <- mergePairs(ddF_2020, filtFs_2020, ddR_2020, filtRs_2020, minOverlap=7, verbose = T)
+```
+```{r}
+# Construct sequence table and remove chimeras
+seqtab_2020 <- makeSequenceTable(mergers_2020)
+```
+
+
+```{r}
+getN <- function(x) sum(getUniques(x))
+track_2020 <- cbind(out_2020, sapply(ddF_2020, getN), sapply(ddR_2020, getN), sapply(mergers_2020, getN))
+# If processing a single sample, remove the sapply calls: e.g. replace sapply(dadaFs, getN) with getN(dadaFs)
+colnames(track_2020) <- c("input", "filtered", "denoisedF", "denoisedR", "merged")
+print(track_2020)
+print(track_2020/track_2020[,1])
+
+```
+
+
+```{r}
+seqtab_2020 <- makeSequenceTable(mergers_2020)
+
+
+```
+
+Continuing with the 2021 year.
+
+```{r, fig.height=10, fig.width=10}
+path_2021 <- paste0("/home/ioannis.kampouris/two_years_study/",
+"2021_DiControl_AP4_WdhMais/trimmed_cutadapt/second_2021") 
+# CHANGE ME to the directory containing your demultiplexed fastq files
+filtpathF_2021 <- file.path(path_2021, "FW_filtered") 
+# Filtered forward files go into the pathF/filtered/ subdirectory
+filtpathR_2021 <- file.path(path_2021, "RE_filtered") # ...
+fastqFs_2021 <- sort(list.files(path_2021, pattern="_1.fq"))
+fastqRs_2021 <- sort(list.files(path_2021, pattern="_2.fq"))
+# Filtering
+out_2021<-filterAndTrim(fwd=file.path(path_2021, fastqFs_2021), 
+filt=file.path(filtpathF_2021, fastqFs_2021),
+rev=file.path(path_2021, fastqRs_2021), 
+filt.rev=file.path(filtpathR_2021, fastqRs_2021),
+maxEE=c(2,2), rm.phix=TRUE, matchIDs = T,
+trimRight   = c(5,5),
+compress=TRUE, verbose=TRUE, multithread=TRUE)
+
+```
+
+```{r, fig.height=10, fig.width=10}
+filtFs_2021 <- list.files(filtpathF_2021, pattern="fq", full.names = TRUE)
+filtRs_2021 <- list.files(filtpathR_2021, pattern="fq", full.names = TRUE)
+sample.names_2021 <- sapply(strsplit(basename(filtFs_2021), "_"), `[`, 1) 
+# Assumes filename = samplename_XXX.fastq.gz
+sample.namesR_2021 <- sapply(strsplit(basename(filtRs_2021), 
+"_"), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+if(!identical(sample.names_2021, sample.namesR_2021)) 
+stop("Forward and reverse files do not match.")else{"Proceed with Safety"}
+names(filtFs_2021) <- sample.names_2021
+names(filtRs_2021) <- sample.names_2021
+errF_2021 <- learnErrors(filtFs_2021, errorEstimationFunction = loessErrfun_mod1, randomize = T, nbases=1e8, multithread=TRUE)
+errR_2021 <- learnErrors(filtRs_2021, nbases=1e8,  errorEstimationFunction = loessErrfun_mod1, randomize = T, multithread=TRUE)
+plotErrors(errF_2021, nominalQ=TRUE)
+plotErrors(errR_2021, nominalQ=TRUE)
+```
+Machine Learning fitting is ok.
+
+```{r}
+
+ddF_2021 <- dada(filtFs_2021, err=errF_2021, multithread=TRUE)
+ddR_2021 <- dada(filtRs_2021, err=errR_2021, multithread=TRUE)
+```
+```{r}
+mergers_2021 <- mergePairs(ddF_2021, filtFs_2021, 
+ddR_2021, filtRs_2021, minOverlap=7)
+```
+```{r}
+# Construct sequence table and remove chimeras
+seqtab_2021 <- makeSequenceTable(mergers_2021)
+```
+
+
+```{r}
+getN <- function(x) sum(getUniques(x))
+track_2021 <- cbind(out_2021, sapply(ddF_2021, getN), sapply(ddR_2021, getN), 
+sapply(mergers_2021, getN))
+# If processing a single sample, remove the sapply calls: e.g. 
+#replace sapply(dadaFs, getN) with getN(dadaFs)
+colnames(track_2021) <- c("input", "filtered", 
+"denoisedF", "denoisedR", "merged")
+print(track_2021)
+```
+
+```{r,ig.height=10, fig.width=10}
+st.two_years <- mergeSequenceTables(seqtab_2020, seqtab_2021)
+table(nchar(getSequences(st.two_years)))
+#It looks like removal with this threshold is the best.
+st.two_years_size_filtered <- st.two_years[,nchar(colnames(st.two_years)) %in% 403:431]
+seqtab <- removeBimeraDenovo(st.two_years_size_filtered, method="consensus", multithread=TRUE)
+
+#Create the ASV table.
+ASVtable=as.data.frame(t(seqtab))%>%rownames_to_column(var="Sequence")
+
+taxa <- assignTaxonomy(seqtab, 
+"~/silva_naive/silva_nr99_v138.1_train_set.fa.gz", minBoot = 80, outputBootstraps = T, multithread=TRUE)
+
+complete_ASV_table= full_join(as.data.frame(taxa)%>%rownames_to_column(var = "Sequence"), ASVtable, by="Sequence")
+complete_ASV_table$ASV=paste0("ASV", rownames(complete_ASV_table))
+
+```
+
+
+```{r}
+
+
+plastid_free_complete_ASV_table = complete_ASV_table%>%
+  filter(`tax.Kingdom`!="NA"&`tax.Order`!="Chloroplast"&`tax.Family`!="Mitochondria")
+plastid_free_complete_ASV_table2 =plastid_free_complete_ASV_table
+
+track_final <- cbind(rbind(out_2020,out_2021),
+rbind(sapply(ddF_2020, getN)%>%as.data.frame(), sapply(ddF_2021, getN)%>%as.data.frame()),
+rbind(sapply(ddR_2020, getN)%>%as.data.frame(),sapply(ddR_2021, getN)%>%as.data.frame()),
+apply(st.two_years,1,sum),apply(st.two_years_size_filtered, 1, sum),apply(seqtab, 1, sum), colSums(plastid_free_complete_ASV_table[,14:(ncol(plastid_free_complete_ASV_table)-1)]))
+colnames(track_final)<-c("Reads In", "Reads Out", 
+"DenoisedF", "DenoisedR", "Merged", "Chimera Out", "Size Out", "Plastid Out")
+track_final_ratio=track_final/track_final[,1]
+
+write.csv(plastid_free_complete_ASV_table,"dada2_out/ASV_Table_LTE_2020_2021.csv")
+write.csv(track_final_ratio,"dada2_out/ASV_Table_LTE_2020_2021_track_final_ratio.csv")
+write.csv(track_final,"dada2_out/ASV_Table_LTE_2020_2021_track_final.csv")
+
+
+writeFasta<-function(data, filename){
+  fastaLines = c()
+  for (rowNum in 1:nrow(data)){
+    fastaLines = c(fastaLines, 
+as.character(paste(">", data[rowNum,"ASV"], sep = "")))
+fastaLines = c(fastaLines,as.character(data[rowNum,"Sequence"]))
+  }
+  
+  fileConn<-file(filename)
+  writeLines(fastaLines, fileConn)
+  close(fileConn)
+}
+
+writeFasta(plastid_free_complete_ASV_table%>%select(ASV, Sequence), "dada2_out/ASVs_LTE_2020_2021.fa")
+
+```
+Comments:
+Initially I got many sequences out from the filter less than 10 reads.
+Therefore I switched to 5 reads
+``` 
