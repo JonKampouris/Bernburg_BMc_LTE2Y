@@ -1,0 +1,114 @@
+File	Genome	ASV	Similarity	Alignment_size_q	Alignment_size_q	Alignment_size_q	e-value	bitscore
+GCF_000190375.1_genomic.fna.txt	"NZ_AEWG01000018.1 Rubrivivax benzoatilyticus JA2 = ATCC BAA-35 strain JA2 contig_18, whole genome shotgun sequence"	ASV757	98.8	429	429	429	2.28E-223	766
+GCF_000204195.1_genomic.fna.txt	"NZ_AFBG01000030.1 Acidovorax radicis N35 contig00030, whole genome shotgun sequence"	ASV206	100	429	429	429	1.24E-231	793
+GCF_000381125.1_genomic.fna.txt	"NZ_KB905979.1 Caldimonas manganoxidans ATCC BAA-369 F615DRAFT_scaffold00051.51, whole genome shotgun sequence"	ASV757	97.4	417	417	417	2.35E-206	710
+GCF_000422885.1_genomic.fna.txt	"NZ_AUGX01000083.1 Ottowia thiooxydans DSM 14619 G518DRAFT_scaffold00075.75_C, whole genome shotgun sequence"	ASV1161	97.7	429	429	429	1.94E-215	738
+GCF_000429845.1_genomic.fna.txt	"NZ_AUCQ01000063.1 Comamonas composti DSM 21721 G486DRAFT_scaffold00054.54_C, whole genome shotgun sequence"	ASV1343	97.4	313	313	313	1.58E-154	535
+GCF_000687165.1_genomic.fna.txt	"NZ_JMKU01000065.1 Acidovorax oryzae ATCC 19882 T336DRAFT_scaffold00063.63_C, whole genome shotgun sequence"	ASV974	97.4	429	429	429	8.41E-214	732
+GCF_001447195.1_genomic.fna.txt	"NZ_LFRI01000030.1 Aquabacterium parvum strain B6 contig000030, whole genome shotgun sequence"	ASV757	97.4	429	429	429	4.76E-214	732
+GCF_001571085.1_genomic.fna.txt	"NZ_BCTC01000301.1 Azohydromonas lata NBRC 102462, whole genome shotgun sequence"	ASV757	98.3	289	289	289	2.81E-146	507
+GCF_001571325.1_genomic.fna.txt	"NZ_BCTO01000107.1 Delftia tsuruhatensis NBRC 16741, whole genome shotgun sequence"	ASV974	97.4	429	429	429	1.21E-213	732
+GCF_001591345.1_genomic.fna.txt	"NZ_BCUS01000208.1 Variovorax boronicumulans NBRC 103145, whole genome shotgun sequence"	ASV656	97.4	429	429	429	2.54E-213	732
+GCF_001591385.1_genomic.fna.txt	"NZ_BCUU01000176.1 Variovorax soli NBRC 106424, whole genome shotgun sequence"	ASV1161	97.7	429	429	429	5.34E-215	738
+GCF_001598235.1_genomic.fna.txt	"NZ_BCYO01000058.1 Polaromonas jejuensis NBRC 106434, whole genome shotgun sequence"	ASV656	97.2	429	429	429	1.13E-211	727
+GCF_001598795.1_genomic.fna.txt	"NZ_BCZP01000070.1 Delftia acidovorans NBRC 14950, whole genome shotgun sequence"	ASV2581	97.4	429	429	429	7.77E-214	732
+GCF_002205645.1_genomic.fna.txt	"NZ_NIOF01000032.1 Roseateles aquatilis strain CCUG 48205 Scaffold30_1, whole genome shotgun sequence"	ASV3770	97.4	429	429	429	2.34E-213	732
+GCF_002205845.1_genomic.fna.txt	"NZ_NISI01000035.1 Pelomonas puraquae strain CCUG 52769 Scaffold32_1, whole genome shotgun sequence"	ASV448	97.9	429	429	429	6.17E-217	743
+GCF_002245625.1_genomic.fna.txt	"NZ_NOIG01000016.1 Acidovorax kalamii strain KNDSW-TSA6 contig_16, whole genome shotgun sequence"	ASV206	98.6	429	429	429	1.13E-221	760
+GCF_003063455.1_genomic.fna.txt	"NZ_NESN01000002.1 Limnohabitans parvus II-B4 LimC-II-B4-C2, whole genome shotgun sequence"	ASV974	97.4	429	429	429	3.42E-211	732
+GCF_003337425.1_genomic.fna.txt	"NZ_QPJU01000022.1 Extensimonas vulgaris strain DSM 100911 Ga0244581_122, whole genome shotgun sequence"	ASV757	97.4	308	308	308	4.31E-151	526
+GCF_003387155.1_genomic.fna.txt	"NZ_QUMT01000011.1 Roseateles depolymerans strain DSM 11813 Ga0244525_111, whole genome shotgun sequence"	ASV3770	97.2	429	429	429	1.06E-211	727
+GCF_003415675.1_genomic.fna.txt	"NZ_QFZK01000050.1 Rhodoferax lacus strain IMCC26218 NODE_51_length_1867_cov_295.095_ID_2518, whole genome shotgun sequence"	ASV656	97.7	429	429	429	1.74E-215	738
+GCF_003569765.1_genomic.fna.txt	"NZ_QXMG01000125.1 Aquabacterium tepidiphilum strain YIM 730274 contig125, whole genome shotgun sequence"	ASV1839	97.4	429	429	429	2.49E-213	732
+GCF_003604195.1_genomic.fna.txt	"NZ_QXGR01000022.1 Simplicispira lacusdiani strain CPCC 100842 Scaffold22, whole genome shotgun sequence"	ASV1161	97.9	429	429	429	1.14E-216	743
+GCF_003933735.1_genomic.fna.txt	"NZ_RSED01000005.1 Aquabacterium soli strain SJQ9 Scaffold5, whole genome shotgun sequence"	ASV890	97.4	429	429	429	1.46E-211	732
+GCF_003952165.1_genomic.fna.txt	"NZ_RXFT01000030.1 Variovorax guangxiensis strain DSM 27352 30, whole genome shotgun sequence"	ASV656	97.2	429	429	429	1.18E-211	727
+GCF_004016505.1_genomic.fna.txt	"NZ_SACR01000012.1 Aquincola rivuli strain KYPY4 NODE_12_length_1071_cov_162, whole genome shotgun sequence"	ASV3770	98	358	358	358	2.92E-181	623
+GCF_004216565.1_genomic.fna.txt	"NZ_SGWV01000002.1 Leptothrix mobilis strain DSM 10617 Ga0310535_111, whole genome shotgun sequence"	ASV1837	97.4	429	429	429	4.87E-213	732
+GCF_004340905.1_genomic.fna.txt	"NZ_SLXD01000029.1 Rubrivivax gelatinosus strain DSM 1709 Ga0310528_129, whole genome shotgun sequence"	ASV757	98.8	429	429	429	2.00E-223	766
+GCF_004342485.1_genomic.fna.txt	"NZ_SMBU01000080.1 Pelomonas saccharophila strain DSM 654 Ga0310527_1080, whole genome shotgun sequence"	ASV448	99.1	429	429	429	4.12E-225	771
+GCF_004362405.1_genomic.fna.txt	"NZ_SNXE01000015.1 Kinneretia asaccharophila strain DSM 25082 Ga0244555_115, whole genome shotgun sequence"	ASV1837	98.6	429	429	429	2.30E-221	760
+GCF_007993815.1_genomic.fna.txt	"NZ_VJWE01000008.1 Acidovorax delafieldii strain DSM 64 Ga0064100_117, whole genome shotgun sequence"	ASV206	99.1	429	429	429	1.96E-225	771
+GCF_009760915.1_genomic.fna.txt	"NZ_VIDQ01000190.1 Azohydromonas aeria strain CFCC 13393 Scaffold190, whole genome shotgun sequence"	ASV795	97.4	430	430	429	5.70E-210	719
+GCF_012927045.1_genomic.fna.txt	"NZ_JABBFW010000070.1 Azohydromonas caseinilytica strain G-1-1-14 contig70, whole genome shotgun sequence"	ASV757	97.4	429	429	429	1.72E-213	732
+GCF_012927085.1_genomic.fna.txt	"NZ_JABBFX010000009.1 Ramlibacter agri strain G-1-2-2 contig9, whole genome shotgun sequence"	ASV974	97.4	429	429	429	2.39E-213	732
+GCF_013155545.1_genomic.fna.txt	"NZ_JABJVV010000015.1 Caenimonas soli strain S4 contig15, whole genome shotgun sequence"	ASV974	97.9	429	429	429	2.74E-215	743
+GCF_013366375.1_genomic.fna.txt	"NZ_JABWMJ010000033.1 Schlegelella koreensis strain ID0723 contig33, whole genome shotgun sequence"	ASV757	97.2	429	429	429	1.16E-211	727
+GCF_015159745.1_genomic.fna.txt	"NZ_JADDOJ010000158.1 Ramlibacter aquaticus strain LMG 30558 NODE_158_length_1795_cov_75.5659, whole genome shotgun sequence"	ASV1161	98.1	429	429	429	7.73E-219	749
+GCF_020387415.1_genomic.fna.txt	"NZ_JAGWCB010000003.1 Ideonella benzenivorans strain B7 NODE_15_length_5472_cov_1005.407858, whole genome shotgun sequence"	ASV757	97.9	429	429	429	1.10E-216	743
+GCF_023913775.1_genomic.fna.txt	"NZ_JAMXAX010000215.1 Acidovorax facilis strain DSM 649 NODE_215_length_5561_cov_78.881855, whole genome shotgun sequence"	ASV206	98.4	429	429	429	5.15E-220	755
+GCF_900100305.1_genomic.fna.txt	"NZ_FNEY01000060.1 Acidovorax citrulli strain DSM 17060, whole genome shotgun sequence"	ASV974	97.7	429	429	429	3.89E-215	738
+GCF_900102625.1_genomic.fna.txt	"NZ_FMZC01000034.1 Acidovorax valerianellae strain DSM 16619, whole genome shotgun sequence"	ASV974	97.2	429	429	429	1.16E-211	727
+GCF_900112675.1_genomic.fna.txt	"NZ_FOMQ01000034.1 Acidovorax konjaci strain DSM 7481, whole genome shotgun sequence"	ASV1343	97.4	429	429	429	1.18E-213	732
+GCF_900113035.1_genomic.fna.txt	"NZ_FONX01000041.1 Acidovorax wautersii strain DSM 27981, whole genome shotgun sequence"	ASV1343	97.7	429	429	429	5.04E-215	738
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
