@@ -10,7 +10,7 @@ library(tibble)# Data handling: rownames/columnanmes
 library(stringr)
 
 library(Biostrings)
-set.seed(17011990)
+set.seed(01122024)
 
 
 track1=read.csv(file = "/home/ioannis.kampouris/DiControl_JKI_Phase3_repos/dada2_out/track_until_chimera.csv") 
