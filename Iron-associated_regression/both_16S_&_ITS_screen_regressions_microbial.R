@@ -12,7 +12,7 @@
   library(forcats)
   library(randomForest) # Random Forest model to train over samples
 
-  set.seed(172590)
+  set.seed(01122024)
   
   source(paste0("/home/ioannis.kampouris/",
   "DiControl_JKI_Phase3_repos/",
