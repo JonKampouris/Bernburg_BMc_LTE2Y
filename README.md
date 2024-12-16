@@ -8,3 +8,6 @@
 **ITS amplicon sequencing was analyzed in Galaxy and proscessed in R.**  </n>
 **Shotgun seqeuncing data was analyzing in R.** </n>
 **Publicly available genomes were analyzed in Linux/bash-shell and R.**
+**Raw and analyzed data can be find in the BONARES repository**
+**R and bash scripts used in the study were uploaded here**
+
