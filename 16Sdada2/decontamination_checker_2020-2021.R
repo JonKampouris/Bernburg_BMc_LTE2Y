@@ -30,7 +30,7 @@ Copies_NG=readxl::read_excel("dada2_out/Di_Control_DNA_2020_2021.xlsx",
                           sheet = "Dcont2")%>%na.omit() %>%aggregate(Copies~Sample, mean)
 Copies_DNA= full_join(DNA_NG, Copies_NG, by="Sample")
 #In this dataset MW is  concentration and einwage the weight. 
-set.seed(17011990)
+set.seed(01122024)
 
 #Function to normalize the ASV table 
 normalise_100 <- function(x){100*(x/sum(x))}
